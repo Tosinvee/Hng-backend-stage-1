@@ -1,0 +1,47 @@
+{
+  "strings": [
+    {
+      "id": "7c2763ce4d06555aaadf3795083140b78e69c91018e825f7c9b0d6f6015ad6b2",
+      "value": "God is good",
+      "properties": {
+        "length": 11,
+        "is_palindrome": false,
+        "unique_characters": 7,
+        "word_count": 3,
+        "sha256_hash": "7c2763ce4d06555aaadf3795083140b78e69c91018e825f7c9b0d6f6015ad6b2",
+        "character_frequency_map": {
+          "G": 1,
+          "o": 3,
+          "d": 2,
+          " ": 2,
+          "i": 1,
+          "s": 1,
+          "g": 1
+        }
+      },
+      "created_at": "2025-10-20T15:51:16.542Z"
+    },
+    {
+      "id": "f84279b9bc03b9ac3a1afe5574a7d108ed408b5be0ed09b9d53308d128c54381",
+      "value": "Tosin is good",
+      "properties": {
+        "length": 13,
+        "is_palindrome": false,
+        "unique_characters": 8,
+        "word_count": 3,
+        "sha256_hash": "f84279b9bc03b9ac3a1afe5574a7d108ed408b5be0ed09b9d53308d128c54381",
+        "character_frequency_map": {
+          "T": 1,
+          "o": 3,
+          "s": 2,
+          "i": 2,
+          "n": 1,
+          " ": 2,
+          "g": 1,
+          "d": 1
+        }
+      },
+      "created_at": "2025-10-20T16:09:09.720Z"
+    }
+  ]
+}
