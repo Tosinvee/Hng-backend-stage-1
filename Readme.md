@@ -32,7 +32,7 @@ Natural language filter interpretation (e.g. “palindromic strings shorter than
 Setup Instructions
 
 Install dependencies
-snpm install
+npm install
 
 Run the project
 npm start
