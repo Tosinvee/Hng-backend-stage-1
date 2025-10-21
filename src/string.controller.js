@@ -1,4 +1,8 @@
-import { analyze } from './string.service.js';
+import {
+  analyze,
+  filterStrings,
+  parseNaturalLanguage,
+} from './string.service.js';
 import { getDb } from './storage.js';
 
 export async function createString(req, res, next) {
@@ -44,11 +48,57 @@ export async function getString(req, res) {
 export async function getStrings(req, res) {
   try {
     const db = getDb();
-    const allStrings = db.data.strings || [];
-    res.json({ count: allStrings.length, data: allStrings });
+    await db.read();
+    const filters = {};
+    if (req.query.is_palindrome !== undefined)
+      filters.is_palindrome = req.query.is_palindrome === 'true';
+    if (req.query.min_length)
+      filters.min_length = parseInt(req.query.min_length);
+    if (req.query.max_length)
+      filters.max_length = parseInt(req.query.max_length);
+    if (req.query.word_count)
+      filters.word_count = parseInt(req.query.word_count);
+    if (req.query.contains_character)
+      filters.contains_character = req.query.contains_character;
+
+    const filtered = filterStrings(db.data.strings, filters);
+
+    res.json({
+      data: filtered,
+      count: filtered.length,
+      filters_applied: filters,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Unable to fetch strings' });
+  }
+}
+
+export async function filterByNaturalLanguage(req, res) {
+  try {
+    const { query } = req.query;
+    if (!query)
+      return res.status(400).json({ error: 'Missing query parameter' });
+
+    const filters = parseNaturalLanguage(query);
+
+    const db = getDb();
+    await db.read();
+
+    const filtered = filterStrings(db.data.strings, filters);
+
+    res.json({
+      data: filtered,
+      count: filtered.length,
+      interpreted_query: {
+        original: query,
+        parsed_filters: filters,
+      },
+    });
+  } catch (err) {
+    if (err.message.includes('Unable to parse'))
+      return res.status(400).json({ error: err.message });
+    res.status(422).json({ error: 'Query parsed but invalid filters' });
   }
 }
 

@@ -42,6 +42,23 @@
         }
       },
       "created_at": "2025-10-20T16:09:09.720Z"
+    },
+    {
+      "id": "fc881aa34d44660e1012dec26ccda0b469d6c8359e91dc674dab4c095b9fe832",
+      "value": "hannah",
+      "properties": {
+        "length": 6,
+        "is_palindrome": true,
+        "unique_characters": 3,
+        "word_count": 1,
+        "sha256_hash": "fc881aa34d44660e1012dec26ccda0b469d6c8359e91dc674dab4c095b9fe832",
+        "character_frequency_map": {
+          "h": 2,
+          "a": 2,
+          "n": 2
+        }
+      },
+      "created_at": "2025-10-21T08:46:43.332Z"
     }
   ]
 }
