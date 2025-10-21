@@ -14,7 +14,10 @@ export async function createString(req, res, next) {
     await db.read();
 
     const existing = db.data.strings.find((s) => s.value === value);
-    if (existing) return res.status(409).json({ error: 'Already exists' });
+    if (existing)
+      return res
+        .status(409)
+        .json({ error: 'String already exists in the system' });
 
     const analysis = analyze(value);
 
@@ -40,7 +43,10 @@ export async function getString(req, res) {
   await db.read();
 
   const string = db.data.strings.find((s) => s.id === id);
-  if (!string) return res.status(404).json({ error: 'String not found' });
+  if (!string)
+    return res
+      .status(404)
+      .json({ error: 'String does not exist in the system' });
 
   res.json(string);
 }
@@ -96,9 +102,11 @@ export async function filterByNaturalLanguage(req, res) {
       },
     });
   } catch (err) {
-    if (err.message.includes('Unable to parse'))
+    if (err.message.includes('Unable to parse naatural language query'))
       return res.status(400).json({ error: err.message });
-    res.status(422).json({ error: 'Query parsed but invalid filters' });
+    res
+      .status(422)
+      .json({ error: 'Query parsed but resulted in conflicting filters' });
   }
 }
 
@@ -115,7 +123,7 @@ export async function deleteString(req, res) {
     db.data.strings.splice(index, 1);
     await db.write();
 
-    res.status(200).json({ message: 'String deleted successfully' });
+    res.status(204).send();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to delete string' });
